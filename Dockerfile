@@ -28,12 +28,12 @@ RUN chown appuser:appuser /app
 # Switch to non-root user
 USER appuser
 
-# Expose the default Spring Boot port
-EXPOSE 8080
+# Expose port 9000
+EXPOSE 9000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
   CMD java -cp app.jar org.springframework.boot.loader.JarLauncher || exit 1
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run the application with server.port=9000
+ENTRYPOINT ["java", "-jar", "app.jar", "--server.port=9000"]
